@@ -12,6 +12,6 @@ public class Test {
 //            System.out.println(rs.getString("id"));
 //        }
         rs.absolute(1);
-
+        System.out.println();
     }
 }
