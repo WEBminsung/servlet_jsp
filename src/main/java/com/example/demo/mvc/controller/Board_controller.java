@@ -26,7 +26,8 @@ public class Board_controller extends HttpServlet {
             rd.forward(req, resp);
         } else if (command.equals("/BoardWriteForm.do")) {
             requestLoginName(req);
-
+            RequestDispatcher rd  = req.getRequestDispatcher("./board/board_writeform.jsp");
+            rd.forward(req, resp);
         }
     }
     public void requestBoardList(HttpServletRequest req) {
@@ -61,6 +62,7 @@ public class Board_controller extends HttpServlet {
     public void requestLoginName(HttpServletRequest req){
         String id = req.getParameter("id");
         Board_dao dao = Board_dao.getInstance();
-        dao.
+        String name = dao.getLoginNameById(id);
+        req.setAttribute("name", name);
     }
 }

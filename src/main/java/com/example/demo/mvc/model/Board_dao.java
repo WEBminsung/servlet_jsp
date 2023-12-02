@@ -123,15 +123,37 @@ public class Board_dao {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        con = Db_connection.getconnection();
-        String sql = "select * from member where id = ?";
-        ps = con.prepareStatement(sql);
-        ps.setString(1, id);
-        rs = ps.executeQuery();
+        String name  = null;
+        try {
+            con = Db_connection.getconnection();
+            String sql = "select * from member where id = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
 
-        if (rs.next()) {
-            return rs.getString("name");
+
+            if (rs.next()) {
+                name =  rs.getString("name");
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return name;
     }
 
 }

@@ -4,7 +4,7 @@
 <%
 
   String sessionId = (String) session.getAttribute("JSESSIONID");
-  sessionId = "a";
+  sessionId = "1";
   List boardList = (List) request.getAttribute("board_list");
   int total_record = (Integer) request.getAttribute("total_record");
   int pageNum = (Integer) request.getAttribute("page_num");
