@@ -3,9 +3,9 @@
 
 
 
-<%@ page import="com.example.demo.Product" %>
+<%@ page import="com.example.demo.mvc.model.Product" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.demo.ProductRepository" %>
+<%@ page import="com.example.demo.mvc.model.Product_dao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
@@ -50,7 +50,7 @@
     }
 </style>
 <%
-    ProductRepository productDAO = ProductRepository.getInstance();
+    Product_dao productDAO = Product_dao.getInstance();
 %>
 <%! String greeting = "현재 페이지는 VGA 그래픽 카드 상품 목록입니다.";
     String tagline = "하단 페이지 : 확인";%>
@@ -135,7 +135,7 @@
 
             <div class="col-md-4">
                 <div class="card product-card">
-                    <a href="detail_ad.jsp?id=<%=product.getId()%>">
+                    <a href="/ReviewListAction.review_do?prev=admin&productId=<%=product.getId()%>">
                         <img src="../image/product/<%=product.getFilename()%>" class="card-img-top" alt="...">
                     </a>
 

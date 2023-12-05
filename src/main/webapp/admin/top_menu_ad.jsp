@@ -17,7 +17,7 @@
         <div class="navbar-header">
             <img src="http://localhost:8080/image/logo2.png" class="img-fluid" alt="main_image" width="50px" style="margin-right: 30px;margin-left: 30px;margin-bottom: 10px">
             <a class="navbar-brand" href="index_ad.jsp">Menu: Home</a>
-            <a class="navbar-brand" href="index_ad.jsp">Login</a>
+            <a class="navbar-brand" href="/login/user_login.jsp">Login</a>
             <a class="navbar-brand" href="index_ad.jsp">Sign up</a>
             <a class="navbar-brand" href="index_ad.jsp">Customer Service</a>
             <a class="navbar-brand" href="../index.jsp">Normal Mode</a>

@@ -147,15 +147,15 @@
 
 
 
-    <%@ page import="com.example.demo.Product" %>
+    <%@ page import="com.example.demo.mvc.model.Product" %>
     <%@ page import="java.util.ArrayList" %>
-    <%@ page import="com.example.demo.ProductRepository" %>
+    <%@ page import="com.example.demo.mvc.model.Product_dao" %>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
         <%
 
-            ProductRepository productDAO = ProductRepository.getInstance();
+            Product_dao productDAO = Product_dao.getInstance();
 
 	        ArrayList<Product> listOfProducts = productDAO.findAll();
         %>
@@ -168,7 +168,7 @@
 
             <div class="col-md-4">
                 <div class="card product-card">
-                    <a href="detail_ad.jsp?id=<%=product.getId()%>">
+                    <a href="/admin/detail_ad.jsp?id=<%=product.getId()%>">
                         <img src="../image/product/<%=product.getFilename()%>" class="card-img-top" alt="...">
                     </a>
 

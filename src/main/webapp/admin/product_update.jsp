@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="com.example.demo.ProductRepository" %>
-<%@ page import="com.example.demo.Product" %>
+<%@ page import="com.example.demo.mvc.model.Product_dao" %>
+<%@ page import="com.example.demo.mvc.model.Product" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -19,8 +19,11 @@
     </div>
 </div>
     <%
-    ProductRepository dao = ProductRepository.getInstance();
+    Product_dao dao = Product_dao.getInstance();
     String id = request.getParameter("id");
+//        if (id == null) {
+//            id = (String) request.getAttribute("productId");
+//        }
 	Product product = dao.findById(id);
    %>
 <div class="container">
@@ -29,7 +32,7 @@
             <img src="../image/product/<%=product.getFilename()%>" class="card-img" alt="...">
         </div>
         <div class="col-md-8">
-            <form name="newProduct" action="/product_update_process" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <form name="newProduct" action="/ProductUpdateAction.product_do" class="form-horizontal" method="post" enctype="multipart/form-data">
             <div class="form-group row">
                 <label class="col-sm-2">상품 코드</label>
                 <div class="col-sm-3">

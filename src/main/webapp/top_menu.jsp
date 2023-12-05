@@ -17,9 +17,9 @@
         <div class="navbar-header">
             <img src="http://localhost:8080/image/logo2.png" class="img-fluid" alt="main_image" width="50px" style="margin-right: 30px;margin-left: 30px;margin-bottom: 10px">
             <a class="navbar-brand" href="/index.jsp">Menu: Home</a>
-            <a class="navbar-brand" href="/index.jsp">Login</a>
+            <a class="navbar-brand" href="/login/user_login.jsp">Login</a>
             <a class="navbar-brand" href="/index.jsp">Sign up</a>
-            <a class="navbar-brand" href="/BoardListAction.do?pageNum=1">Customer Service</a>
+            <a class="navbar-brand" href="/BoardListAction.board_do?pageNum=1">Customer Service</a>
             <a class="navbar-brand" href="/admin/index_ad.jsp">Admin Mode</a>
             <a href="cart/product_cart.jsp"><img src="http://localhost:8080/image/cart.png" style="border-radius: 20px"></a>
         </div>

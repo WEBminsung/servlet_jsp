@@ -156,4 +156,145 @@ public class Board_dao {
         return name;
     }
 
+    public void insertBoard(Board_dto board){
+        String id = board.getId();
+        String name = board.getName();
+        String content = board.getContent();
+        String subject = board.getSubject();
+        String regist_day = board.getRegist_day();
+        int hit = board.getHit();
+        String ip = board.getIp();
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try{
+            con = Db_connection.getconnection();
+            String sql = "insert into board(name, content, subject, regist_day, hit, ip, id) values(?, ?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, content);
+            ps.setString(3, subject);
+            ps.setString(4, regist_day);
+            ps.setInt(5, hit);
+            ps.setString(6, ip);
+            ps.setString(7, id);
+
+            int result = ps.executeUpdate();
+            if (result == 0) {
+                throw new SQLException("insert를 실행했지만 삽입되지 않았습니다");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public Board_dto getBoardByNum(int num) {
+        increaseHit(num);
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try{
+            con = Db_connection.getconnection();
+            String sql = "select * from board where num = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, num);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Board_dto board = new Board_dto();
+                board.setId(rs.getString("id"));
+                board.setIp(rs.getString("ip"));
+                board.setHit(rs.getInt("hit"));
+                board.setNum(rs.getInt("num"));
+                board.setSubject(rs.getString("subject"));
+                board.setContent(rs.getString("content"));
+                board.setRegist_day(rs.getString("regist_day"));
+                board.setName(rs.getString("name"));
+
+                return board;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    public void increaseHit(int num) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            con = Db_connection.getconnection();
+            String sql = "select hit from board where num = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, num);
+            rs = ps.executeQuery();
+
+            int hit = 0;
+            if (rs.next()) {
+                hit = rs.getInt("hit") + 1;
+            }
+            String sql2 = "update board set hit = ? where num = ?";
+            ps = con.prepareStatement(sql2);
+            ps.setInt(1, hit);
+            ps.setInt(2, num);
+            int result = ps.executeUpdate();
+            if (result == 0) {
+                throw new RuntimeException("update가 실행되지 않았습니다 sql 문에 오류가 있습니다");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void updateBoard(Board_dto board) {
+        try {
+            Connection con = Db_connection.getconnection();
+            String sql = "update board set name = ?, subject = ?, content = ?, regist_day = ? where num = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, board.getName());
+            ps.setString(2, board.getSubject());
+            ps.setString(3, board.getContent());
+            ps.setString(4, board.getRegist_day());
+            ps.setInt(5, board.getNum());
+
+            int result = ps.executeUpdate();
+            if (result == 0) {
+                throw new SQLException("update 되지 않았습니다 sql 문에 오류가 있습니다");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void deleteBoard(int num) {
+        try {
+            Connection con = Db_connection.getconnection();
+            String sql = "delete from board where num = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, num);
+            int result = ps.executeUpdate();
+            if (result == 0) {
+                throw new SQLException("sql문이 실행되었지만 반영되지 않았습니다");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

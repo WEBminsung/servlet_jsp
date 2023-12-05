@@ -3,7 +3,7 @@
 
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.net.URLDecoder"%>
-<%@ page import="com.example.demo.Product" %>
+<%@ page import="com.example.demo.mvc.model.Product" %>
 <%@ page import="java.io.PrintWriter" %>
 <%
     PrintWriter printWriter = response.getWriter();

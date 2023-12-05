@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="container">
-    <form name="newProduct" action="/product_add_process" class="form-horizontal" method="post" enctype ="multipart/form-data">
+    <form name="newProduct" action="/ProductAddAction.product_do" class="form-horizontal" method="post" enctype ="multipart/form-data">
         <div class="form-group row">
             <label class="col-sm-2">상품 코드</label>
             <div class="col-sm-3">

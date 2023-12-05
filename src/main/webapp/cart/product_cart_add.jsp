@@ -1,11 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.demo.Product" %>
-<%@ page import="com.example.demo.ProductRepository" %>
+<%@ page import="com.example.demo.mvc.model.Product" %>
+<%@ page import="com.example.demo.mvc.model.Product_dao" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-    ProductRepository dao = ProductRepository.getInstance();
+    Product_dao dao = Product_dao.getInstance();
 
     String id = request.getParameter("id");
     Product product = dao.findById(id);

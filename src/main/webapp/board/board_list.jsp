@@ -3,8 +3,8 @@
 <%@ page import="com.example.demo.mvc.model.Board_dto"%>
 <%
 
-  String sessionId = (String) session.getAttribute("JSESSIONID");
-  sessionId = "1";
+  String sessionId = (String) session.getAttribute("username");
+
   List boardList = (List) request.getAttribute("board_list");
   int total_record = (Integer) request.getAttribute("total_record");
   int pageNum = (Integer) request.getAttribute("page_num");
@@ -24,10 +24,10 @@
       var session_check = <%=sessionId == null%>;
       if (session_check) {
         alert("로그인 해주세요.");
-        location.href = "../login/login.jsp"
+        location.href = "../login/user_login.jsp"
         return false;
       }
-      location.href = "./BoardWriteForm.do?id=<%=sessionId%>"
+      location.href = "./BoardWriteForm.board_do?id=<%=sessionId%>"
     }
   </script>
 </head>
@@ -39,7 +39,7 @@
   </div>
 </div>
 <div class="container">
-  <form action="<%=request.getContextPath()%>/BoardListAction.do/>" method="post">
+  <form action="<%=request.getContextPath()%>/BoardListAction.board_do/>" method="post">
     <div>
       <div class="text-right">
         <span class="badge badge-success">전체 <%=total_record%>건</span>
@@ -60,7 +60,7 @@
         %>
         <tr>
           <td><%=notice.getNum()%></td>
-          <td><a href="./BoardViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>"><%=notice.getSubject()%></a></td>
+          <td><a href="./BoardViewAction.board_do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>"><%=notice.getSubject()%></a></td>
           <td><%=notice.getRegist_day()%></td>
           <td><%=notice.getHit()%></td>
           <td><%=notice.getName()%></td>
@@ -73,7 +73,7 @@
     <div align="center">
         <%for (int i = 1; i <= total_page; i++){%>
 
-          <a href="<%=request.getContextPath()%>./BoardListAction.do?pageNum=<%=i%>" />
+          <a href="<%=request.getContextPath()%>./BoardListAction.baord_do?pageNum=<%=i%>" />
           <%if(pageNum == i){%>
             <font color='4C5317'><b> [<%=i%>]</b></font>
           <%}else{%>

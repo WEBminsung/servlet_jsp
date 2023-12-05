@@ -6,17 +6,8 @@
     <title>ES6 Template Literal in HTML</title>
 </head>
 <body>
-<script>
-    <%
-//    request.setAttribute("JSESSIONID", "hello");
-    %>
-    var a = <%=request.getAttribute("JSESSIONID") == null%>;
-    if(a){
-        console.log("true임");
-    }else{
-        console.log(a);
-    }
-</script>
+<div style="background-color: violet; width: 20px">
 
+</div>
 </body>
 </html>

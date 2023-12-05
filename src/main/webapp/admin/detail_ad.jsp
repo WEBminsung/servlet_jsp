@@ -1,9 +1,12 @@
-<%@ page import="com.example.demo.ProductRepository" %>
-<%@ page import="com.example.demo.Product" %>
+<%@ page import="com.example.demo.mvc.model.Product_dao" %>
+<%@ page import="com.example.demo.mvc.model.Product" %>
+<%@ page import="com.example.demo.mvc.model.Review_dto" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page errorPage="exception/product_not_found.jsp"%>
+
 <%
-    ProductRepository productDAO = ProductRepository.getInstance();
+    Product_dao productDAO = Product_dao.getInstance();
+    String username = (String) session.getAttribute("username");
 %>
 <html>
 <head>
@@ -21,6 +24,21 @@
                 document.addForm.reset();
             }
         }
+
+        function login_confirm(num) {
+            if (<%=username == null%>) {
+                alert("로그인해주세요");
+                window.location = "../login/user_login.jsp";
+                return;
+            }
+                window.location = "/review/review_write.jsp?productId=" + "<%=request.getParameter("productId")%>" + "&num=" + num;
+            }
+        function confirm_delete(num, productId){
+            if (confirm("삭제하시겠습니까?")) {
+                window.location =  "ReviewDeleteAction.review_do?num=" + num + "&productId=" + productId + "&prev=admin";
+            }
+
+        }
     </script>
 </head>
 <body>
@@ -32,7 +50,7 @@
     </div>
 </div>
     <%
-		String id = request.getParameter("id");
+		String id = request.getParameter("productId");
 		Product product = productDAO.findById(id);
 	%>
 <div class="container">
@@ -59,6 +77,55 @@
         </div>
     </div>
     <hr>
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4">상품 리뷰 목록</h2>
+    <%
+        ArrayList<Review_dto> reviews = (ArrayList<Review_dto>) request.getAttribute("reviews");
+    %>
+    <button onclick="login_confirm(<%=reviews.size()%>)">리뷰 작성</button>
+
+    <!-- 상품 리뷰 테이블 -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">작성자</th>
+            <th scope="col">리뷰 내용</th>
+
+            <th scope="col">작성일</th>
+            <th scope="col">평점</th>
+            <th scope="col">이미지</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            for (Review_dto review: reviews) {
+        %>
+
+        <tr>
+            <th scope="row"><%=review.getNum()%></th>
+            <td><%=review.getId()%></td>
+            <td><pre>
+        <%=review.getContent()%>
+            </pre></td>
+            <td><%=review.getRegist_day()%></td>
+            <td><%=review.getScore()%></td>
+            <td><img src="/image/review/<%=review.getFilename()%>" alt="상품 A 이미지" style="max-width: 100px;"></td>
+
+            <td>
+                <%if(username != null && username.equals(review.getId())){%>
+                    <button class="btn btn-primary" onclick="confirm_delete(<%=review.getNum()%>, '<%=review.getProductId()%>')">삭제</button>
+<%--                        <button onclick="window.location = '/test/test.jsp?productId=' + '<%=review.getProductId()%>'">dsf</button>--%>
+                <%}%>
+            </td>
+        </tr>
+
+        <%}%>
+        <!-- 추가적인 상품 리뷰 데이터는 여기에 추가 -->
+        </tbody>
+    </table>
 </div>
 <%@ include file="footer_ad.jsp" %>
 </body>
