@@ -5,9 +5,10 @@ file:///C:/Users/ko758/Downloads/%EC%9B%B9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%E
 
 
 
+먼저 xml 파일들이 로컬에 있어서 깃허브에 올리지 못해 캡쳐로 보여드립니다 ㅠㅠ
 
 
-
+![image](https://github.com/WEBminsung/servlet_jsp/assets/127908351/bdeeef75-edc6-42d7-a404-aa8f8b38b668)
 
 
 
